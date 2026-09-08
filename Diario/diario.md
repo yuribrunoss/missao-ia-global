@@ -1,30 +1,143 @@
-# DIÁRIO DE DESENVOLVIMENTO — MISSÃO IA GLOBAL
+# 📘 DIÁRIO MESTRE — MISSÃO IA GLOBAL (ELITE EDITION)
 
-## Projeto
+**Versão:** v2.0
 
-**Missão IA Global — Elite Edition**
+**Operação:** Saída do Uber → AI Automation Developer Internacional
 
-**Operação:** Saída do Uber → Carreira Internacional em IA
+**Início da Missão:** 08/09/2026
 
-**Data de início:** 07/09/2026
+**Aluno:** Yuri Bruno
 
----
+**Projeto Principal:** Missão IA Global
 
-# FASE 0 — FUNDAÇÃO IA
-
-## MISSÃO 001 — Ambiente Profissional de IA
-
-**Status Geral:** 🟡 Em andamento (71%)
+**Projeto de Portfólio:** YUYU AI ERP
 
 ---
 
-## Etapas concluídas
+# 🎯 OBJETIVO PRINCIPAL
 
-### ✅ Etapa 1 — Estrutura da Missão IA Global
+Construir um portfólio profissional em IA, Backend e Automação capaz de conquistar uma vaga remota internacional.
 
-Estrutura oficial criada.
+---
 
-```text
+# 📍 STATUS GERAL DA MISSÃO
+
+| Indicador                   | Status               |
+| --------------------------- | -------------------- |
+| Volume Atual                | Volume 0             |
+| Missão Atual                | Missão 002 (Próxima) |
+| Progresso Geral da Formação | 3%                   |
+| Nível                       | 🟡 AI Builder I      |
+| XP Total                    | **175 XP**           |
+| Dias Consecutivos           | 🔥 1                 |
+
+---
+
+# 🏆 MISSÕES CONCLUÍDAS
+
+## ✅ MISSÃO 001 — Ambiente Profissional de IA
+
+**Data:** 08/09/2026
+
+### Objetivo
+
+Preparar um ambiente profissional de desenvolvimento utilizando ferramentas modernas.
+
+### Entregas
+
+- Estrutura oficial da Missão IA Global.
+- VS Code configurado.
+- Python configurado com UV.
+- Ambiente virtual criado.
+- GitHub profissional configurado.
+- Bio internacional criada.
+- SSH configurado.
+- Primeiro Push realizado.
+- Branch Main criada.
+
+### Aprendizados
+
+- Git.
+- GitHub.
+- SSH.
+- UV.
+- pyproject.toml.
+- Organização de projetos Python.
+
+### Problemas Resolvidos
+
+#### Git criado dentro do Volume 0
+
+Solução:
+
+Remoção do .git interno e padronização para um único Git na raiz.
+
+#### GitHub recusando senha HTTPS
+
+Solução:
+
+Migração completa para autenticação SSH.
+
+### XP Obtido
+
+175 XP
+
+### Resultado Final
+
+🟢 Missão concluída com sucesso.
+
+---
+
+## MISSÃO 002 — Atualização (08/09/2026)
+
+### Etapa 2.1.2 — GitHub Profile README
+
+**Status:** ✅ Concluída
+
+Entrega realizada:
+
+- README do perfil GitHub criado.
+- Hero internacional.
+- About Me.
+- Current Mission.
+- Featured Projects.
+- Current Goals.
+- Learning in Public.
+
+### Code Review
+
+Resultado: **9/10**
+
+Melhorias previstas na próxima etapa:
+
+- GitHub Stats.
+- Tech Stack Visual.
+- Banner Premium.
+- Roadmap Visual.
+
+# 📚 STACK APRENDIDA
+
+## Ferramentas configuradas
+
+- Git
+- GitHub
+- SSH
+- VS Code
+- UV
+- Python
+
+## Ambiente Oficial
+
+- pyproject.toml
+- uv.lock
+- .venv
+- .python-version
+
+---
+
+# 📦 ARQUITETURA OFICIAL DA MISSÃO
+
+```text id="1v4yzy"
 MISSAO-IA-GLOBAL/
 │
 ├── 00-Fundacao-IA/
@@ -34,162 +147,90 @@ MISSAO-IA-GLOBAL/
 ├── 04-Backend-IA/
 ├── 05-Carreira-Internacional/
 │
-├── Portfolio/
+├── Assets/
 ├── Diario/
-└── Assets/
+├── Portfolio/
+└── Engineering-Handbook/
 ```
 
 ---
 
-### ✅ Etapa 2 — VS Code configurado para IA
+# 🧩 CHANGELOG DA MISSÃO
 
-Configuração do ambiente de desenvolvimento realizada.
+## v1.1
 
-Extensões instaladas:
+Migração de PIP → UV.
 
-* Python (Microsoft)
-* Pylance
-* GitLens
-* Thunder Client
-* Material Icon Theme
-* Error Lens
+## v1.2
 
-Tema oficial:
+Git único na raiz.
 
-* GitHub Dark Default
+## v1.3
 
----
+Convenção de commits.
 
-### ✅ Etapa 3 — Python Moderno com UV
+## v1.4
 
-Decisão oficial da Elite Edition aplicada.
+GitHub SSH.
 
-**PATCH v1.1**
+## v2.0
 
-Mudanças aprovadas:
-
-* UV substitui PIP.
-* `pyproject.toml` torna-se padrão oficial.
-* `uv.lock` passa a fazer parte de todos os projetos Python.
-* `requirements.txt` deixa de ser utilizado nos novos projetos.
-
-Ambiente Python criado com UV.
-
-Dependências registradas via UV.
+Novo formato do Diário Mestre (Engineering Log).
 
 ---
 
-### ✅ Etapa 4 — GitHub Profissional (Perfil)
+# ⏱️ HORAS DE ESTUDO
 
-Perfil reorganizado para carreira internacional.
+## Dia 01
 
-Configurações realizadas:
+**Data:** 08/09/2026
 
-* Nome profissional.
-* Foto profissional.
-* Company: YUYU CELL.
-* Localização: Natal, Rio Grande do Norte, Brazil.
-* Bio internacional adicionada.
+Tempo estimado:
 
-Bio atual:
+03h30
 
-> AI Automation Developer in training • Building AI Solutions with Python, AI Agents, APIs and Automation.
+Conteúdo:
 
-> Founder of YUYU AI ERP | Learning in Public 🇧🇷
-
-> Open to Remote Opportunities.
+- Git.
+- GitHub.
+- SSH.
+- UV.
+- Organização da Missão.
 
 ---
 
-### ✅ Etapa 5 — Configurações Estratégicas do GitHub
+# 💼 PORTFÓLIO EM CONSTRUÇÃO
 
-Perfil otimizado.
+## Projeto 01
 
-Configurações ativadas:
+Missão IA Global
 
-* Public Contributions.
-* Activity Overview.
-* Achievements visíveis.
-* Perfil preparado para portfólio público.
+Status:
 
----
+🟢 Fundação concluída.
 
-## XP da Missão
+## Projeto 02
 
-| Missão             | XP  |
-| ------------------ | --- |
-| Estrutura          | +20 |
-| VS Code IA         | +30 |
-| Python + UV        | +40 |
-| GitHub Perfil      | +15 |
-| GitHub Estratégico | +20 |
+YUYU AI ERP
 
-**XP Acumulado:** **125 XP**
+Status:
 
-**Nível Atual:** 🟢 Nível 1 — Fundador da Missão IA Global
+Arquitetura iniciada.
 
 ---
 
-## Tecnologias Oficialmente Dominadas na Fundação
+# 🚀 PRÓXIMA MISSÃO
 
-* GitHub
-* Git
-* VS Code
-* Python (Ambiente)
-* UV
-* pyproject.toml
-* Ambiente Virtual Python
+MISSÃO 002 — Construção da Marca Profissional Internacional
 
----
+Objetivos:
 
-## Aprendizados da Missão
+- GitHub Premium.
+- LinkedIn Premium.
+- Banner.
+- README do Perfil.
+- Engenharia do Portfólio.
 
-* Estrutura profissional de projetos Python.
-* Organização da Missão IA Global.
-* Configuração moderna utilizando UV.
-* Organização de um GitHub voltado para recrutadores.
+Status:
 
----
-
-## Dificuldades Encontradas
-
-* Migração de PIP para UV durante a configuração inicial.
-
-**Solução aplicada:** atualização oficial da arquitetura dos projetos (Patch v1.1).
-
----
-
-## Mudanças Oficiais da Elite Edition
-
-### PATCH v1.1
-
-Aplicado em:
-
-* Missão IA Global.
-* YUYU CELL ERP Premium.
-
-Arquitetura Python atualizada para o padrão UV.
-
----
-
-## Status da Missão 001
-
-* [x] Estrutura da Missão criada.
-* [x] VS Code IA configurado.
-* [x] Python configurado com UV.
-* [x] Perfil GitHub profissional.
-* [x] Configurações estratégicas do GitHub.
-* [ ] Repositório principal da Missão IA Global.
-* [ ] Primeiro commit profissional.
-
-**Progresso da Missão 001:** 71%
-
----
-
-## Próxima Missão
-
-**Missão 001.5 — Repositório Profissional + Primeiro Commit**
-
-Objetivo:
-
-Criar o repositório oficial da Missão IA Global, iniciar o controle de versões e publicar o primeiro commit profissional.
+🟡 Liberada.
