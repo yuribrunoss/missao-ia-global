@@ -1,70 +1,53 @@
-# ⭐ Featured Projects — Yuri Bruno
+# LinkedIn Featured Section — Official Version (EN)
 
-> **Version:** 1.0.0
-> **Status:** 🟢 Active
-> **Module:** Career OS / LinkedIn
+## Foundation Premium v1.0
 
----
+### Objective
 
-# 🌍 Featured Strategy
-
-The Featured section highlights real software engineering projects that demonstrate AI Engineering, Backend Development and AI Automation skills.
+Transform the LinkedIn Featured section into a visual portfolio that immediately communicates AI Engineering experience.
 
 ---
 
-## 🚀 Project 01 — Missão IA Global
+## Featured Order (Official)
 
-### AI Engineering Roadmap Built in Public
+### 1. Missão IA Global
 
-A complete engineering roadmap documenting the journey from software fundamentals to production-ready AI systems.
+Complete AI Engineering roadmap documenting my journey from software fundamentals to production-ready AI systems, backend APIs and AI agents.
 
-### Highlights
-
-* AI Engineering roadmap.
-* Backend architecture.
-* GitHub Premium profile.
-* Documentation-first workflow.
-* Career OS.
-* Brand System.
-
-**Repository**
-
-GitHub Repository (Missão IA Global)
+**Type:** GitHub Repository
 
 ---
 
-## 🤖 Project 02 — YUYU AI ERP
+### 2. GitHub Profile
 
-### AI-Powered ERP for Real Businesses
+Open-source AI Engineering portfolio featuring backend systems, automation projects, AI agents and learning-in-public documentation.
 
-A production-oriented ERP system applying backend engineering, APIs, PostgreSQL, authentication, CRM, inventory and AI automation.
-
-### Highlights
-
-* ERP architecture.
-* FastAPI backend.
-* PostgreSQL.
-* CRM.
-* Inventory.
-* Financial module.
-* AI Assistant.
-
-**Repository**
-
-YUYU AI ERP Repository
+**Type:** GitHub Profile
 
 ---
 
-## 💻 Project 03 — GitHub Premium Profile
+### 3. YUYU AI ERP
 
-### Building Software Engineering in Public
+AI-powered ERP platform for technical assistance and digital businesses built with Python, FastAPI, PostgreSQL and AI Agents.
 
-Professional GitHub profile showcasing documentation, architecture, engineering handbooks and AI projects.
+**Type:** Project Repository / Media
 
-### Highlights
+---
 
-* Documentation-first.
-* Design System.
-* Architecture Guides.
-* Changelog.
-* Learning in Public.
+### 4. Portfolio Website (Coming Soon)
+
+Professional portfolio showcasing AI Engineering projects, backend systems, articles and automation solutions.
+
+**Type:** Portfolio Website
+
+---
+
+## Visual Standard
+
+* Dark Theme.
+* Purple/Blue Identity.
+* OpenGraph Images.
+* Short English descriptions.
+* Consistent branding.
+
+Status: Foundation Premium v1.0

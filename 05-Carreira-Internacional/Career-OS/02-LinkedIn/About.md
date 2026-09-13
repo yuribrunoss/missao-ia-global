@@ -1,30 +1,32 @@
-# 🌍 About — Yuri Bruno
+# LinkedIn About — Official Version (EN)
 
-> **Version:** 1.0.0
-> **Status:** 🟢 Active
-> **Module:** Career OS / LinkedIn
+## Foundation Premium v1.0
 
----
+I'm an AI Engineer and Backend Developer passionate about building intelligent products, scalable backend systems and automation workflows using Python, FastAPI, PostgreSQL and AI Agents.
 
-## AI Engineering • Backend Development • AI Automation
+Currently, I'm building **Missão IA Global**, a complete AI Engineering journey where every project is developed publicly — from software architecture and backend engineering to AI agents and production-ready systems.
 
-I'm an AI Engineering student focused on building production-ready software and automation systems while documenting my learning journey publicly through the **Missão IA Global** project.
+## What I Build
 
-My goal is to become an AI Engineer capable of designing backend services, AI agents and intelligent automation solutions for businesses around the world.
+* AI Automation Systems.
+* Backend APIs with FastAPI.
+* PostgreSQL Database Architecture.
+* AI Agents & LLM Integrations.
+* Open Source Engineering Projects.
+* Intelligent Business Workflows.
 
-Currently, I'm developing real projects using Python, FastAPI, PostgreSQL and AI automation workflows, with an emphasis on software architecture, documentation and scalable engineering practices.
+## Current Project
 
-### 🚀 Current Projects
+I'm leading the development of **YUYU AI ERP**, an AI-powered ERP platform for technical assistance and digital businesses focused on automation, inventory, sales, customer management and AI assistants.
 
-* **Missão IA Global** — A complete AI Engineering roadmap built in public, combining software engineering, backend development, AI automation and career preparation for global opportunities.
-* **YUYU AI ERP** — An AI-powered ERP system designed as a real-world business project, applying architecture, APIs, databases, automation and product engineering concepts.
+## Mission
 
-### 💡 Engineering Mindset
+Build intelligent products that solve real business problems through software engineering and artificial intelligence.
 
-I believe that documenting systems is as important as building them. Every project I create follows a documentation-first approach with architecture guides, changelogs, roadmaps and reusable design systems.
+## Tech Stack
 
-### 🌍 Career Vision
+Python • FastAPI • PostgreSQL • Docker • GitHub • AI Agents • REST APIs • Automation
 
-I'm preparing for remote international opportunities in AI Engineering, Backend Development and AI Automation, continuously improving my technical skills, English and software engineering practices through real projects.
+🌍 Open to Remote AI Engineering and Backend Engineering opportunities across Europe and global teams.
 
-**Open to Remote Global Opportunities.**
+Status: Foundation Premium v1.0

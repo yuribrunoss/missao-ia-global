@@ -61,3 +61,26 @@ Version
 Use in README
 
 Publish on GitHub
+
+# Assets Library — MISSÃO IA GLOBAL
+
+This folder stores every visual asset used across the ecosystem.
+
+## Structure
+
+* Repository Assets
+* Portfolio Assets
+* Brand Assets
+* Screenshots
+* Mockups
+* Hero Images
+* Icons
+* Open Graph Images
+
+## Naming Convention
+
+Banner-GitHub-v1.png
+Banner-LinkedIn-v1.png
+Hero-Portfolio-v1.png
+OpenGraph-v1.png
+Mockup-README-v1.png

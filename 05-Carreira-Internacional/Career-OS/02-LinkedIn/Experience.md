@@ -1,63 +1,68 @@
-# 💼 Experience — Yuri Bruno
+# LinkedIn Experience — YUYU AI Studio (EN)
 
-> **Version:** 1.0.0
-> **Status:** 🟢 Active
-> **Module:** Career OS / LinkedIn
+## Foundation Premium v1.0
 
----
+### Position
 
-## AI Engineering Builder
+AI Engineer & Backend Developer
 
-**Missão IA Global**
+### Company
 
-**Role:** Founder • AI Engineering Student
+YUYU AI Studio
 
-**Period:** 2026 — Present
+### Employment Type
 
-### Overview
+Self-employed
 
-Building a complete AI Engineering ecosystem publicly, documenting the journey from software fundamentals to production-ready AI systems.
+### Location
 
-### Responsibilities
+Natal, Rio Grande do Norte, Brazil — Remote
 
-* Software architecture documentation.
-* Backend development with Python.
-* FastAPI APIs.
-* PostgreSQL database design.
-* AI Automation workflows.
-* Git and GitHub workflow.
-* Engineering documentation.
-* Design System creation.
+### Start Date
 
-### Technologies
-
-Python • FastAPI • PostgreSQL • Git • Docker • VS Code • AI Automation
+September 2026
 
 ---
 
-## AI Product Engineering
+## Description
 
-**YUYU AI ERP**
+Building AI-powered backend systems, intelligent automation workflows and production-ready APIs using Python, FastAPI, PostgreSQL and AI Agents.
 
-**Role:** Founder • Backend & AI Product Builder
+Currently leading the development of **YUYU AI ERP**, an AI-powered ERP platform for technical assistance and digital businesses as part of the **Missão IA Global** engineering journey.
 
-**Period:** 2026 — Present
+---
 
-### Overview
+## Main Responsibilities
 
-Developing an AI-powered ERP system for a real business environment, applying backend architecture, APIs, databases and automation concepts.
+* Design and develop backend APIs using FastAPI.
+* Build PostgreSQL database architecture and optimization.
+* Develop AI Agents and LLM integrations.
+* Create automation workflows for business operations.
+* Build scalable backend systems for AI products.
+* Maintain an open-source engineering workflow through GitHub.
 
-### Responsibilities
+---
 
-* ERP architecture.
-* API design.
-* PostgreSQL modeling.
-* Authentication planning.
-* CRM module.
-* Inventory module.
-* Financial module.
-* AI assistant integration.
+## Current Projects
 
-### Technologies
+### Missão IA Global
 
-Python • FastAPI • PostgreSQL • Docker • Git • REST APIs
+Public AI Engineering roadmap documenting the complete learning journey.
+
+### YUYU AI ERP
+
+AI-powered ERP platform focused on automation, inventory management, customer management and intelligent assistants.
+
+---
+
+## Technologies
+
+Python • FastAPI • PostgreSQL • Docker • GitHub • AI Agents • REST APIs • Automation
+
+---
+
+## Mission
+
+Building intelligent products for a better future.
+
+Status: Foundation Premium v1.0

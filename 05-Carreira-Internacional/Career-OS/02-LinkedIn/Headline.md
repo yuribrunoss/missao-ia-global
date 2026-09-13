@@ -1,35 +1,54 @@
-# 💼 LinkedIn Headline — Yuri Bruno
+# LinkedIn Headline — Official Version (EN)
 
-> **Version:** 1.0.0
-> **Status:** 🟢 Active
-> **Module:** Career OS / LinkedIn
+## Foundation Premium v1.0
 
----
+### Primary Headline (Official)
 
-# 🌍 Official Headline (International)
+AI Engineer | Backend Developer | AI Automation Engineer
 
-AI Engineering Student • Backend Developer • AI Automation Builder
-
-Building AI solutions for businesses with Python, FastAPI, PostgreSQL and Automation Systems.
-
-Open to Remote Global Opportunities.
+Building intelligent products with Python, FastAPI, PostgreSQL and AI Agents. 🌍 Open to Remote Opportunities (Europe & Global)
 
 ---
 
-# 🎯 Purpose
+## Purpose
 
-This headline positions Yuri Bruno as an AI Engineering professional preparing for international software engineering opportunities while building real AI products publicly.
+This headline is optimized for international recruiters looking for professionals in AI Engineering, Backend Development and Intelligent Automation.
 
----
+### Keywords
 
-# 📌 Keywords
-
-* AI Engineering
-* Backend Development
-* AI Automation
+* AI Engineer
+* Backend Developer
+* AI Automation Engineer
 * Python
 * FastAPI
 * PostgreSQL
-* Open to Work
+* AI Agents
 * Remote
+* Europe
 * Global
+
+---
+
+## Alternative Versions
+
+### Version A — AI Engineering Focus
+
+AI Engineer | Python Developer | AI Agents & Backend Systems
+
+### Version B — Backend Focus
+
+Backend Developer | FastAPI | PostgreSQL | AI Automation
+
+### Version C — Founder Focus
+
+Founder @ YUYU AI Studio | AI Engineer | Backend Developer | Building AI-powered products
+
+---
+
+## Current Official Version
+
+AI Engineer | Backend Developer | AI Automation Engineer
+
+Building intelligent products with Python, FastAPI, PostgreSQL and AI Agents. 🌍 Open to Remote Opportunities (Europe & Global)
+
+Status: Foundation Premium v1.0
