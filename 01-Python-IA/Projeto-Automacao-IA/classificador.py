@@ -20,6 +20,7 @@ import sys
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import errors
 
 # Carrega as variaveis do arquivo .env (onde fica a chave da API)
 load_dotenv()
@@ -63,7 +64,7 @@ def classificar_feedback(client: genai.Client, feedback: str) -> str:
         contents=prompt,
     )
 
-    return resposta.text
+    return resposta.text or "Sem resposta da IA"
 
 
 def main() -> None:
@@ -87,7 +88,8 @@ def main() -> None:
         try:
             resultado = classificar_feedback(client, feedback)
             print("\n" + resultado.strip() + "\n")
-        except Exception as erro:
+
+        except errors.APIError as erro:
             print(f"\nDeu erro ao chamar a API: {erro}\n")
 
 
