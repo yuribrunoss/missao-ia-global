@@ -1,0 +1,9 @@
+[project]
+name = "projeto-automacao-ia"
+version = "0.1.0"
+description = "Semana 1 da trilha pratica: script que usa a API do Gemini para classificar feedbacks de clientes"
+requires-python = ">=3.10"
+dependencies = [
+    "google-genai",
+    "python-dotenv",
+]
