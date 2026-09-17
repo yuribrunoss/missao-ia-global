@@ -24,7 +24,7 @@ from google import genai
 # Carrega as variaveis do arquivo .env (onde fica a chave da API)
 load_dotenv()
 
-MODELO = "gemini-2.0-flash"
+MODELO = "gemini-3.6-flash"
 
 PROMPT_BASE = """Voce e um assistente que analisa feedbacks de clientes.
 
