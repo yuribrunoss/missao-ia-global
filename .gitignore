@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Bancos de dados locais (dados do usuario, nao vao pro git)
+*.db
+*.sqlite
+*.sqlite3
