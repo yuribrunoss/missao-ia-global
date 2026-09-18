@@ -1,9 +1,11 @@
 [project]
 name = "projeto-automacao-ia"
-version = "0.1.0"
-description = "Semana 1 da trilha pratica: script que usa a API do Gemini para classificar feedbacks de clientes"
+version = "0.2.0"
+description = "Semanas 1-2 da trilha pratica: classificador de feedbacks com IA (CLI + API FastAPI)"
 requires-python = ">=3.10"
 dependencies = [
     "google-genai",
     "python-dotenv",
+    "fastapi",
+    "uvicorn[standard]",
 ]

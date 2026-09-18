@@ -3,46 +3,63 @@
 Projeto prático da Missão IA Global: automação com IA que evolui semana a
 semana.
 
+## Estrutura
+
+- `nucleo.py` — toda a lógica de verdade: chamar a IA, interpretar a
+  resposta, guardar/ler o histórico no SQLite. Nem o CLI nem a API
+  duplicam essa lógica, os dois só importam daqui.
+- `classificador.py` — a versão de terminal (CLI).
+- `api.py` — a mesma lógica exposta como API HTTP, com FastAPI.
+- `historico.db` — banco SQLite local (não vai pro git, é dado seu).
+
 ## O que ele faz hoje
 
-Um script de terminal que recebe um feedback de cliente (texto livre),
-usa a API do Gemini para classificar o sentimento — positivo, negativo
-ou neutro — com justificativa, e agora também **guarda esse histórico**
-num banco SQLite local (`historico.db`, não vai pro git). Digite
-`historico` a qualquer momento pra ver as últimas classificações
-salvas.
+Recebe um feedback de cliente (texto livre) e usa a API do Gemini para
+classificar o sentimento — positivo, negativo ou neutro — com
+justificativa, guardando tudo num histórico local. Duas formas de usar:
 
-Problema de negócio que representa: qualquer empresa que recebe muito
-feedback de cliente (suporte, avaliações, redes sociais) precisa triar
-isso rápido e manter um registro de como os clientes estão se sentindo
-ao longo do tempo.
+### 1. Pelo terminal (CLI)
 
-## Como rodar
+```bash
+uv run classificador.py
+```
+
+Digite um feedback, veja a classificação. Digite `historico` pra ver o
+que já foi salvo. Digite `sair` para encerrar.
+
+### 2. Pela API (FastAPI)
+
+```bash
+uv run uvicorn api:app --reload
+```
+
+Depois abra http://127.0.0.1:8000/docs no navegador — o FastAPI gera
+uma página interativa sozinho, onde dá pra testar os endpoints sem
+escrever nenhum código:
+
+- `POST /classificar` — manda `{"feedback": "seu texto aqui"}`, recebe
+  de volta o sentimento e a justificativa.
+- `GET /historico?limite=5` — devolve as últimas classificações salvas.
+
+Problema de negócio que representa: qualquer sistema (um site, um
+chatbot, uma planilha automatizada) pode chamar essa API pra classificar
+feedbacks em tempo real, sem precisar de alguém digitando no terminal.
+
+## Como configurar (primeira vez)
 
 1. Tenha o [uv](https://docs.astral.sh/uv/) instalado.
-2. Copie `.env.example` para `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-3. Pegue uma chave grátis da API do Gemini em
-   https://aistudio.google.com/apikey e cole no `.env`.
-4. Instale as dependências:
+2. Copie `.env.example` para `.env` e cole sua chave grátis da API do
+   Gemini (pegue em https://aistudio.google.com/apikey).
+3. Instale as dependências:
    ```bash
    uv sync
    ```
-5. Rode:
-   ```bash
-   uv run classificador.py
-   ```
-6. Digite um feedback e veja a classificação. Digite `historico` pra
-   ver o que já foi salvo. Digite `sair` para encerrar.
 
 ## Próximas etapas (plano)
 
-- **Ainda na Semana 2:** expor essa mesma lógica como uma API com
-  FastAPI (1-2 endpoints, ex.: `POST /classificar`).
 - **Semana 3:** tratamento de erro mais robusto e deploy grátis (Render/
-  Railway/Fly.io).
+  Railway/Fly.io) — a API ficando acessível por um link de verdade, não
+  só no seu computador.
 - **Semana 4:** README final, link no GitHub e primeiro post no LinkedIn
   mostrando o projeto rodando.
 
