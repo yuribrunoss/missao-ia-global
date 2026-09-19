@@ -18,6 +18,7 @@ forma interativa (o FastAPI gera essa pagina sozinho).
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 
 from nucleo import (
@@ -57,6 +58,12 @@ app = FastAPI(
     version="0.2.0",
     lifespan=gerenciar_ciclo_de_vida,
 )
+
+
+@app.get("/", include_in_schema=False)
+def raiz() -> RedirectResponse:
+    """Redireciona a raiz da API para a documentacao interativa (/docs)."""
+    return RedirectResponse(url="/docs")
 
 
 class FeedbackEntrada(BaseModel):
