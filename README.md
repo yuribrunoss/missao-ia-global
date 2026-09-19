@@ -41,6 +41,7 @@ The project is developed publicly as an engineering portfolio.
 | Engineering Area        | Status                        |
 | ----------------------- | ----------------------------- |
 | 🌍 Missão IA Global     | 🟢 Active                     |
+| 🧠 Classificador (IA)   | 🟢 Em Produção                |
 | 🤖 YUYU AI ERP          | 🟢 Architecture Phase         |
 | 💼 Career OS            | 🟢 LinkedIn Premium Completed |
 | 🎨 Brand System Premium | 🟢 Completed                  |
@@ -106,22 +107,21 @@ Foundation of the entire ecosystem.
 
 ---
 
-## 🏗 Volume 1 — YUYU AI ERP *(Next Development Phase)*
+## 🏗 Volume 1 — Python for AI *(In Progress — First Project Delivered)*
 
-Real-world AI ERP built using backend engineering principles.
+Python programming applied to AI Engineering — from fundamentals to production AI systems.
 
-### Planned Modules
+### Delivered
 
-* Authentication.
-* CRM.
-* Inventory.
-* Financial.
-* Orders.
-* Warranty.
-* Marketing.
-* AI Assistant.
+* **Classificador de Feedbacks com IA** — CLI + FastAPI + SQLite + Google Gemini API, deployed in production on Render.
+  [Live API docs →](https://missao-ia-global-classificador.onrender.com/docs)
 
-**Status:** 🟡 Architecture Ready
+### In Progress / Next
+
+* Additional automation scripts.
+* Expanded AI Engineering exercises.
+
+**Status:** 🟡 In Progress
 
 ---
 
@@ -156,9 +156,24 @@ Public AI Engineering roadmap documenting the complete engineering journey.
 
 ---
 
-## 🤖 YUYU AI ERP
+## 🧠 Classificador de Feedbacks com IA
 
-AI-powered ERP system for a real business environment.
+AI-powered feedback classification system — the first real product delivered in the Missão IA Global roadmap.
+
+**Highlights**
+
+* CLI + FastAPI + SQLite.
+* Google Gemini API integration.
+* Deployed in production (Render).
+* End-to-end tested.
+
+**Status:** 🟢 Live — [API Docs](https://missao-ia-global-classificador.onrender.com/docs)
+
+---
+
+## 🤖 YUYU AI ERP *(Future Hero Project)*
+
+AI-powered ERP system for a real business environment. Planned as a future engineering volume, after the AI Automation Systems phase.
 
 **Highlights**
 
@@ -229,13 +244,24 @@ MISSAO-IA-GLOBAL/
 
 ## Backend
 
+**In use:**
+
 * FastAPI
+* SQLite
+
+**Planned (future volumes):**
+
 * PostgreSQL
 * Docker
 
 ## AI Engineering
 
-* OpenAI APIs
+**In use:**
+
+* Google Gemini API
+
+**Planned:**
+
 * AI Automation
 * AI Agents *(planned)*
 
@@ -363,7 +389,8 @@ The roadmap is divided into engineering volumes and release milestones.
 * Official LinkedIn Banner
 * Official GitHub Banner
 * Portfolio Website v1
-* YUYU AI ERP — Volume 1 Development
+* Volume 2 — AI Automation Systems Kickoff
+* YUYU AI ERP — Future Hero Project Kickoff
 
 ---
 
@@ -394,14 +421,15 @@ Building software publicly while documenting engineering decisions, architecture
 
 # 📜 Repository Status
 
-| Item           | Status                |
-| -------------- | --------------------- |
-| Documentation  | 🟢 Active             |
-| Brand System   | 🟢 Completed          |
-| Career OS      | 🟢 Completed          |
-| GitHub Premium | 🟡 Release Candidate  |
-| Portfolio      | 🟡 Planning           |
-| YUYU AI ERP    | 🟢 Architecture Ready |
+| Item                | Status                |
+| ------------------- | ---------------------- |
+| Documentation       | 🟢 Active             |
+| Classificador (IA)  | 🟢 Em Produção        |
+| Brand System        | 🟢 Completed          |
+| Career OS           | 🟢 Completed          |
+| GitHub Premium      | 🟡 Release Candidate  |
+| Portfolio           | 🟡 Planning           |
+| YUYU AI ERP         | 🟢 Architecture Ready |
 
 ---
 
@@ -418,6 +446,26 @@ Building software publicly while documenting engineering decisions, architecture
 ---
 
 # 📝 Changelog
+
+## v3.1.0 — Volume 1 Delivered & Roadmap Correction
+
+### Added
+
+* First real production project delivered: **Classificador de Feedbacks com IA** (CLI + FastAPI + SQLite + Google Gemini API), deployed on Render.
+* New Hero Project entry for the Classificador.
+* Founder Dashboard and Repository Status updated with the delivered project.
+
+### Changed
+
+* **Volume 1** renumbered from "YUYU AI ERP" to **"Python for AI"**, to match the actual delivered work and the GitHub profile roadmap.
+* YUYU AI ERP repositioned as a future Hero Project (no fixed volume yet), planned after the AI Automation Systems phase.
+* Tech Stack split into **In use** vs **Planned**, removing unearned claims (PostgreSQL, Docker, OpenAI APIs) from the current stack.
+
+### Status
+
+🟢 Shipped
+
+---
 
 ## v3.0.0 — Volume 0 Premium Release Candidate
 
