@@ -1,4 +1,4 @@
-# Projeto de Automação com IA — Semana 2
+# Projeto de Automação com IA — Semana 3
 
 Projeto prático da Missão IA Global: automação com IA que evolui semana a
 semana.
@@ -45,7 +45,7 @@ Problema de negócio que representa: qualquer sistema (um site, um
 chatbot, uma planilha automatizada) pode chamar essa API pra classificar
 feedbacks em tempo real, sem precisar de alguém digitando no terminal.
 
-## Como configurar (primeira vez)
+## Como configurar (primeira vez, local)
 
 1. Tenha o [uv](https://docs.astral.sh/uv/) instalado.
 2. Copie `.env.example` para `.env` e cole sua chave grátis da API do
@@ -55,11 +55,32 @@ feedbacks em tempo real, sem precisar de alguém digitando no terminal.
    uv sync
    ```
 
+## Deploy público (Render)
+
+A API roda de graça no [Render](https://render.com), usando o Blueprint
+`render.yaml` que está na raiz do repositório (`MISSAO-IA-GLOBAL/render.yaml`).
+Passo a passo em `claude/plano-4-semanas.md` no projeto Missão IA Global,
+resumo:
+
+1. Criar conta no Render e conectar o repositório `MISSAO-IA-GLOBAL`.
+2. Criar um "Blueprint" a partir do `render.yaml` — ele já configura o
+   build (`uv sync`) e o start (`uvicorn`) sozinho.
+3. Definir a variável de ambiente `GOOGLE_API_KEY` no painel do Render
+   (nunca vai pro git — o Blueprint só reserva o nome).
+4. Aguardar o primeiro deploy e testar em `https://<nome-do-serviço>.onrender.com/docs`.
+
+**Limitações do plano grátis (esperadas, não são bugs):**
+- O serviço "dorme" depois de 15 min sem receber requisição, e a
+  primeira chamada depois disso demora ~1 min pra responder (ele está
+  "ligando" de novo).
+- O disco é temporário: a cada novo deploy ou "sono" prolongado, o
+  `historico.db` reseta e recomeça vazio. Serve bem para demonstrar que
+  a API funciona; se quiser histórico permanente, o próximo passo seria
+  trocar o SQLite local por um banco Postgres gerenciado (fora do
+  escopo das 4 semanas).
+
 ## Próximas etapas (plano)
 
-- **Semana 3:** tratamento de erro mais robusto e deploy grátis (Render/
-  Railway/Fly.io) — a API ficando acessível por um link de verdade, não
-  só no seu computador.
 - **Semana 4:** README final, link no GitHub e primeiro post no LinkedIn
   mostrando o projeto rodando.
 

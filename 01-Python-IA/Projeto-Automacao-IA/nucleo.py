@@ -17,7 +17,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from google import genai
-from google.genai import errors
+from google.genai import (
+    errors,  # noqa: F401 - reexportado p/ api.py e classificador.py capturarem errors.APIError
+)
 
 load_dotenv()
 

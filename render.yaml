@@ -1,0 +1,13 @@
+services:
+  - type: web
+    runtime: python
+    name: missao-ia-global-classificador
+    plan: free
+    rootDir: 01-Python-IA/Projeto-Automacao-IA
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: uv run uvicorn api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.14.3
+      - key: GOOGLE_API_KEY
+        sync: false
