@@ -24,11 +24,14 @@ from pydantic import BaseModel
 from nucleo import (
     ChaveNaoConfigurada,
     classificar_feedback,
+    criar_acao_pendente,
     errors,
     inicializar_banco,
     montar_cliente,
+    obter_acoes_pendentes,
     obter_historico,
     parsear_resposta,
+    precisa_de_acao_humana,
     salvar_no_historico,
 )
 
@@ -55,7 +58,7 @@ async def gerenciar_ciclo_de_vida(app: FastAPI):
 app = FastAPI(
     title="Classificador de Feedbacks com IA",
     description="Classifica o sentimento de feedbacks de clientes usando a API do Gemini.",
-    version="0.3.0",
+    version="0.4.0",
     lifespan=gerenciar_ciclo_de_vida,
 )
 
@@ -75,6 +78,7 @@ class ClassificacaoSaida(BaseModel):
     justificativa: str
     resposta_sugerida: str
     resposta_completa: str
+    acao_pendente_criada: bool
 
 
 @app.post("/classificar", response_model=ClassificacaoSaida)
@@ -95,13 +99,23 @@ def classificar(entrada: FeedbackEntrada) -> ClassificacaoSaida:
         ) from erro
 
     sentimento, justificativa, resposta_sugerida = parsear_resposta(resultado)
-    salvar_no_historico(feedback, sentimento, justificativa, resposta_sugerida)
+    classificacao_id = salvar_no_historico(
+        feedback, sentimento, justificativa, resposta_sugerida
+    )
+
+    acao_criada = False
+    if precisa_de_acao_humana(sentimento):
+        criar_acao_pendente(
+            classificacao_id, "Feedback negativo — revisar e responder ao cliente."
+        )
+        acao_criada = True
 
     return ClassificacaoSaida(
         sentimento=sentimento,
         justificativa=justificativa,
         resposta_sugerida=resposta_sugerida,
         resposta_completa=resultado.strip(),
+        acao_pendente_criada=acao_criada,
     )
 
 
@@ -109,3 +123,9 @@ def classificar(entrada: FeedbackEntrada) -> ClassificacaoSaida:
 def historico(limite: int = 5) -> list[dict]:
     """Retorna as ultimas classificacoes salvas."""
     return obter_historico(limite)
+
+
+@app.get("/acoes-pendentes")
+def acoes_pendentes(limite: int = 20) -> list[dict]:
+    """Retorna as acoes pendentes mais recentes (feedbacks negativos que precisam de atencao)."""
+    return obter_acoes_pendentes(limite)

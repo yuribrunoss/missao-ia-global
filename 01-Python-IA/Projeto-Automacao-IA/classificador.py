@@ -22,11 +22,14 @@ import sys
 from nucleo import (
     ChaveNaoConfigurada,
     classificar_feedback,
+    criar_acao_pendente,
     errors,
     inicializar_banco,
     montar_cliente,
+    obter_acoes_pendentes,
     obter_historico,
     parsear_resposta,
+    precisa_de_acao_humana,
     salvar_no_historico,
 )
 
@@ -49,10 +52,28 @@ def mostrar_historico(limite: int = 5) -> None:
     print()
 
 
+def mostrar_acoes_pendentes(limite: int = 20) -> None:
+    """Imprime as acoes pendentes (feedbacks negativos que precisam de atencao)."""
+    acoes = obter_acoes_pendentes(limite)
+
+    if not acoes:
+        print("\nNenhuma acao pendente no momento.\n")
+        return
+
+    print(f"\n=== {len(acoes)} acao(oes) pendente(s) ===")
+    for acao in acoes:
+        feedback = acao["feedback"]
+        resumo = feedback if len(feedback) <= 60 else feedback[:57] + "..."
+        print(f"- [{acao['criado_em']}] {resumo}")
+        print(f"  motivo: {acao['motivo']}")
+    print()
+
+
 def main() -> None:
     print("=== Classificador de Feedbacks com IA ===")
     print("Digite um feedback de cliente e pressione Enter.")
     print("Digite 'historico' para ver as ultimas classificacoes salvas.")
+    print("Digite 'acoes' para ver as acoes pendentes (feedbacks negativos).")
     print("Digite 'sair' para encerrar.\n")
 
     try:
@@ -74,6 +95,10 @@ def main() -> None:
             mostrar_historico()
             continue
 
+        if feedback.lower() == "acoes":
+            mostrar_acoes_pendentes()
+            continue
+
         if not feedback:
             print("Digite algum texto antes de continuar.\n")
             continue
@@ -83,7 +108,16 @@ def main() -> None:
             print("\n" + resultado.strip() + "\n")
 
             sentimento, justificativa, resposta_sugerida = parsear_resposta(resultado)
-            salvar_no_historico(feedback, sentimento, justificativa, resposta_sugerida)
+            classificacao_id = salvar_no_historico(
+                feedback, sentimento, justificativa, resposta_sugerida
+            )
+
+            if precisa_de_acao_humana(sentimento):
+                criar_acao_pendente(
+                    classificacao_id,
+                    "Feedback negativo — revisar e responder ao cliente.",
+                )
+                print("(sentimento negativo: acao pendente criada — digite 'acoes' pra ver)\n")
         except errors.APIError as erro:
             print(f"\nDeu erro ao chamar a API: {erro}\n")
 

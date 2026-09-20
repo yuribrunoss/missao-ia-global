@@ -114,13 +114,25 @@ def inicializar_banco() -> None:
                 "ALTER TABLE classificacoes ADD COLUMN resposta_sugerida TEXT"
             )
 
+        conexao.execute(
+            """
+            CREATE TABLE IF NOT EXISTS acoes_pendentes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                classificacao_id INTEGER NOT NULL,
+                motivo TEXT NOT NULL,
+                criado_em TEXT NOT NULL,
+                FOREIGN KEY (classificacao_id) REFERENCES classificacoes (id)
+            )
+            """
+        )
+
 
 def salvar_no_historico(
     feedback: str, sentimento: str, justificativa: str, resposta_sugerida: str
-) -> None:
-    """Guarda uma classificacao no banco SQLite local."""
+) -> int:
+    """Guarda uma classificacao no banco SQLite local e retorna o id gerado."""
     with sqlite3.connect(BANCO_DE_DADOS) as conexao:
-        conexao.execute(
+        cursor = conexao.execute(
             "INSERT INTO classificacoes "
             "(feedback, sentimento, justificativa, resposta_sugerida, criado_em) "
             "VALUES (?, ?, ?, ?, ?)",
@@ -132,6 +144,7 @@ def salvar_no_historico(
                 datetime.now(timezone.utc).isoformat(),
             ),
         )
+        return cursor.lastrowid
 
 
 def obter_historico(limite: int = 5) -> list[dict]:
@@ -152,4 +165,55 @@ def obter_historico(limite: int = 5) -> list[dict]:
             "criado_em": criado_em,
         }
         for feedback, sentimento, justificativa, resposta_sugerida, criado_em in linhas
+    ]
+
+
+def precisa_de_acao_humana(sentimento: str) -> bool:
+    """Decide se uma classificacao precisa virar uma acao pendente.
+
+    Regra da Semana 2 (Volume 2): feedback negativo sempre precisa de
+    alguem olhando — e o "agir" depois do "decidir".
+    """
+    return sentimento.strip().lower() == "negativo"
+
+
+def criar_acao_pendente(classificacao_id: int, motivo: str) -> None:
+    """Registra que uma classificacao precisa de atencao humana."""
+    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+        conexao.execute(
+            "INSERT INTO acoes_pendentes (classificacao_id, motivo, criado_em) "
+            "VALUES (?, ?, ?)",
+            (classificacao_id, motivo, datetime.now(timezone.utc).isoformat()),
+        )
+
+
+def obter_acoes_pendentes(limite: int = 20) -> list[dict]:
+    """Retorna as acoes pendentes mais recentes, com o feedback original."""
+    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+        linhas = conexao.execute(
+            """
+            SELECT acoes_pendentes.id,
+                   acoes_pendentes.motivo,
+                   acoes_pendentes.criado_em,
+                   classificacoes.feedback,
+                   classificacoes.sentimento,
+                   classificacoes.resposta_sugerida
+            FROM acoes_pendentes
+            JOIN classificacoes ON classificacoes.id = acoes_pendentes.classificacao_id
+            ORDER BY acoes_pendentes.id DESC
+            LIMIT ?
+            """,
+            (limite,),
+        ).fetchall()
+
+    return [
+        {
+            "id": id_,
+            "motivo": motivo,
+            "criado_em": criado_em,
+            "feedback": feedback,
+            "sentimento": sentimento,
+            "resposta_sugerida": resposta_sugerida,
+        }
+        for id_, motivo, criado_em, feedback, sentimento, resposta_sugerida in linhas
     ]
