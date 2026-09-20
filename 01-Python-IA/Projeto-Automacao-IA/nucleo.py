@@ -64,6 +64,28 @@ FERRAMENTA_CRIAR_ACAO_PENDENTE = types.FunctionDeclaration(
     ),
 )
 
+# Volume 3 - Semana 2: segunda ferramenta, de "memoria". O agente pode
+# escolher consultar feedbacks parecidos antes de decidir — nao e
+# obrigado a usar, mas tem a opcao.
+FERRAMENTA_CONSULTAR_HISTORICO = types.FunctionDeclaration(
+    name="consultar_historico_parecido",
+    description=(
+        "Consulta o historico de feedbacks anteriores com o mesmo "
+        "sentimento, pra ver se esse tipo de problema e recorrente. "
+        "Use antes de decidir se precisa de acao pendente, se achar util "
+        "— nao e obrigatorio usar."
+    ),
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "limite": types.Schema(
+                type=types.Type.INTEGER,
+                description="Quantos feedbacks anteriores buscar (padrao 3).",
+            ),
+        },
+    ),
+)
+
 PROMPT_DECISAO_AGENTE = """Voce e um agente que decide se um feedback de cliente, ja classificado, precisa de atencao humana.
 
 Feedback do cliente:
@@ -72,8 +94,10 @@ Feedback do cliente:
 Sentimento identificado: {sentimento}
 Justificativa: {justificativa}
 
-Se esse caso precisar que alguem da equipe revise e responda ao cliente, chame a funcao criar_acao_pendente explicando o motivo. Se nao precisar (feedback positivo ou neutro sem problema), responda apenas "Nenhuma acao necessaria." sem chamar nenhuma funcao.
+Se quiser, use a ferramenta consultar_historico_parecido pra ver se esse tipo de problema ja aconteceu antes (padrao recorrente pode mudar sua decisao). Depois, se esse caso precisar que alguem da equipe revise e responda ao cliente, chame a funcao criar_acao_pendente explicando o motivo. Se nao precisar (feedback positivo ou neutro sem problema), responda apenas "Nenhuma acao necessaria." sem chamar nenhuma funcao.
 """
+
+MAXIMO_PASSOS_AGENTE = 4
 
 
 class ChaveNaoConfigurada(RuntimeError):
@@ -113,6 +137,12 @@ def decidir_acao_com_agente(
     """Deixa o Gemini decidir, via function calling, se esse caso precisa
     virar uma acao pendente — em vez de uma regra fixa no Python.
 
+    O agente tem duas ferramentas: pode consultar feedbacks parecidos no
+    historico (memoria/contexto) antes de decidir, e no final chama ou nao
+    a funcao que cria a acao pendente. E um loop curto de tool-use, nao uma
+    unica chamada — mas limitado (MAXIMO_PASSOS_AGENTE) pra nunca rodar
+    indefinidamente.
+
     Retorna o motivo (string) se o agente decidiu que precisa de acao, ou
     None se ele decidiu que nao precisa.
     """
@@ -120,23 +150,88 @@ def decidir_acao_com_agente(
         feedback=feedback, sentimento=sentimento, justificativa=justificativa
     )
 
-    resposta = client.models.generate_content(
-        model=MODELO,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            tools=[
-                types.Tool(function_declarations=[FERRAMENTA_CRIAR_ACAO_PENDENTE])
-            ],
-        ),
+    config = types.GenerateContentConfig(
+        tools=[
+            types.Tool(
+                function_declarations=[
+                    FERRAMENTA_CRIAR_ACAO_PENDENTE,
+                    FERRAMENTA_CONSULTAR_HISTORICO,
+                ]
+            )
+        ],
     )
 
-    chamadas = resposta.function_calls or []
-    for chamada in chamadas:
-        if chamada.name == "criar_acao_pendente":
-            args = chamada.args or {}
-            return args.get("motivo") or "Feedback requer atencao humana."
+    contents = [types.Content(role="user", parts=[types.Part.from_text(text=prompt)])]
 
+    for _ in range(MAXIMO_PASSOS_AGENTE):
+        resposta = client.models.generate_content(
+            model=MODELO, contents=contents, config=config
+        )
+
+        chamadas = resposta.function_calls or []
+        if not chamadas:
+            # o agente respondeu em texto (ex.: "Nenhuma acao necessaria.")
+            # sem chamar nenhuma funcao — decisao final: nao precisa de acao.
+            return None
+
+        contents.append(resposta.candidates[0].content)
+
+        motivo_final = None
+        for chamada in chamadas:
+            args = chamada.args or {}
+
+            if chamada.name == "criar_acao_pendente":
+                motivo_final = args.get("motivo") or "Feedback requer atencao humana."
+                contents.append(
+                    types.Content(
+                        role="user",
+                        parts=[
+                            types.Part.from_function_response(
+                                name=chamada.name, response={"status": "ok"}
+                            )
+                        ],
+                    )
+                )
+            elif chamada.name == "consultar_historico_parecido":
+                limite = int(args.get("limite") or 3)
+                resultados = consultar_historico_parecido(sentimento, limite)
+                contents.append(
+                    types.Content(
+                        role="user",
+                        parts=[
+                            types.Part.from_function_response(
+                                name=chamada.name,
+                                response={"resultados": resultados},
+                            )
+                        ],
+                    )
+                )
+
+        if motivo_final is not None:
+            return motivo_final
+
+    # o agente gastou todos os passos sem decidir criar uma acao — trata
+    # como "nao precisa" em vez de travar esperando pra sempre.
     return None
+
+
+def consultar_historico_parecido(sentimento: str, limite: int = 3) -> list[dict]:
+    """Busca classificacoes anteriores com o mesmo sentimento.
+
+    E a "memoria" que o agente (decidir_acao_com_agente) pode consultar
+    antes de decidir se um feedback precisa de acao pendente.
+    """
+    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+        linhas = conexao.execute(
+            "SELECT feedback, justificativa, criado_em FROM classificacoes "
+            "WHERE sentimento = ? ORDER BY id DESC LIMIT ?",
+            (sentimento, limite),
+        ).fetchall()
+
+    return [
+        {"feedback": feedback, "justificativa": justificativa, "criado_em": criado_em}
+        for feedback, justificativa, criado_em in linhas
+    ]
 
 
 def parsear_resposta(resposta: str) -> tuple[str, str, str]:

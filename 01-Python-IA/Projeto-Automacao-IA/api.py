@@ -57,7 +57,7 @@ async def gerenciar_ciclo_de_vida(app: FastAPI):
 app = FastAPI(
     title="Classificador de Feedbacks com IA",
     description="Classifica o sentimento de feedbacks de clientes usando a API do Gemini.",
-    version="0.5.0",
+    version="0.6.0",
     lifespan=gerenciar_ciclo_de_vida,
 )
 
