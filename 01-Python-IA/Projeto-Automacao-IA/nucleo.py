@@ -194,7 +194,11 @@ def decidir_acao_com_agente(
                 )
             elif chamada.name == "consultar_historico_parecido":
                 limite = int(args.get("limite") or 3)
+                print(
+                    f"  [agente] consultando historico de feedbacks '{sentimento}' parecidos..."
+                )
                 resultados = consultar_historico_parecido(sentimento, limite)
+                print(f"  [agente] encontrou {len(resultados)} registro(s) parecido(s)")
                 contents.append(
                     types.Content(
                         role="user",
