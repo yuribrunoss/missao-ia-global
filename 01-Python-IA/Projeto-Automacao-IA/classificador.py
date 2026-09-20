@@ -23,13 +23,13 @@ from nucleo import (
     ChaveNaoConfigurada,
     classificar_feedback,
     criar_acao_pendente,
+    decidir_acao_com_agente,
     errors,
     inicializar_banco,
     montar_cliente,
     obter_acoes_pendentes,
     obter_historico,
     parsear_resposta,
-    precisa_de_acao_humana,
     salvar_no_historico,
 )
 
@@ -112,12 +112,14 @@ def main() -> None:
                 feedback, sentimento, justificativa, resposta_sugerida
             )
 
-            if precisa_de_acao_humana(sentimento):
-                criar_acao_pendente(
-                    classificacao_id,
-                    "Feedback negativo — revisar e responder ao cliente.",
-                )
-                print("(sentimento negativo: acao pendente criada — digite 'acoes' pra ver)\n")
+            motivo_acao = decidir_acao_com_agente(
+                client, feedback, sentimento, justificativa
+            )
+            if motivo_acao:
+                criar_acao_pendente(classificacao_id, motivo_acao)
+                print(f"(agente decidiu criar acao pendente — motivo: {motivo_acao})\n")
+            else:
+                print("(agente decidiu que nao precisa de acao)\n")
         except errors.APIError as erro:
             print(f"\nDeu erro ao chamar a API: {erro}\n")
 

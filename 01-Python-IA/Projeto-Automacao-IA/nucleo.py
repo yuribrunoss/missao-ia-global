@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import (
     errors,  # noqa: F401 - reexportado p/ api.py e classificador.py capturarem errors.APIError
+    types,
 )
 
 load_dotenv()
@@ -36,6 +37,42 @@ Resposta sugerida: <uma resposta curta e educada para enviar ao cliente, coerent
 
 Feedback do cliente:
 \"\"\"{feedback}\"\"\"
+"""
+
+# Volume 3: em vez de um "if sentimento == negativo" fixo no Python, o
+# Gemini recebe essa ferramenta e decide ELE MESMO se deve cham a-la.
+FERRAMENTA_CRIAR_ACAO_PENDENTE = types.FunctionDeclaration(
+    name="criar_acao_pendente",
+    description=(
+        "Chame esta funcao quando esse feedback precisar que alguem da "
+        "equipe revise e responda ao cliente (tipicamente feedback "
+        "negativo ou uma reclamacao seria). Nao chame para feedbacks "
+        "positivos ou neutros sem problema real."
+    ),
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "motivo": types.Schema(
+                type=types.Type.STRING,
+                description=(
+                    "Breve motivo pelo qual esse feedback precisa de "
+                    "atencao humana."
+                ),
+            ),
+        },
+        required=["motivo"],
+    ),
+)
+
+PROMPT_DECISAO_AGENTE = """Voce e um agente que decide se um feedback de cliente, ja classificado, precisa de atencao humana.
+
+Feedback do cliente:
+\"\"\"{feedback}\"\"\"
+
+Sentimento identificado: {sentimento}
+Justificativa: {justificativa}
+
+Se esse caso precisar que alguem da equipe revise e responda ao cliente, chame a funcao criar_acao_pendente explicando o motivo. Se nao precisar (feedback positivo ou neutro sem problema), responda apenas "Nenhuma acao necessaria." sem chamar nenhuma funcao.
 """
 
 
@@ -68,6 +105,38 @@ def classificar_feedback(client: genai.Client, feedback: str) -> str:
     )
 
     return resposta.text or "Sem resposta da IA"
+
+
+def decidir_acao_com_agente(
+    client: genai.Client, feedback: str, sentimento: str, justificativa: str
+) -> str | None:
+    """Deixa o Gemini decidir, via function calling, se esse caso precisa
+    virar uma acao pendente — em vez de uma regra fixa no Python.
+
+    Retorna o motivo (string) se o agente decidiu que precisa de acao, ou
+    None se ele decidiu que nao precisa.
+    """
+    prompt = PROMPT_DECISAO_AGENTE.format(
+        feedback=feedback, sentimento=sentimento, justificativa=justificativa
+    )
+
+    resposta = client.models.generate_content(
+        model=MODELO,
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            tools=[
+                types.Tool(function_declarations=[FERRAMENTA_CRIAR_ACAO_PENDENTE])
+            ],
+        ),
+    )
+
+    chamadas = resposta.function_calls or []
+    for chamada in chamadas:
+        if chamada.name == "criar_acao_pendente":
+            args = chamada.args or {}
+            return args.get("motivo") or "Feedback requer atencao humana."
+
+    return None
 
 
 def parsear_resposta(resposta: str) -> tuple[str, str, str]:
@@ -166,15 +235,6 @@ def obter_historico(limite: int = 5) -> list[dict]:
         }
         for feedback, sentimento, justificativa, resposta_sugerida, criado_em in linhas
     ]
-
-
-def precisa_de_acao_humana(sentimento: str) -> bool:
-    """Decide se uma classificacao precisa virar uma acao pendente.
-
-    Regra da Semana 2 (Volume 2): feedback negativo sempre precisa de
-    alguem olhando — e o "agir" depois do "decidir".
-    """
-    return sentimento.strip().lower() == "negativo"
 
 
 def criar_acao_pendente(classificacao_id: int, motivo: str) -> None:

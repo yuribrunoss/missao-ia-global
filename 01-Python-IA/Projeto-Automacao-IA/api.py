@@ -23,13 +23,13 @@ from nucleo import (
     ChaveNaoConfigurada,
     classificar_feedback,
     criar_acao_pendente,
+    decidir_acao_com_agente,
     errors,
     inicializar_banco,
     montar_cliente,
     obter_acoes_pendentes,
     obter_historico,
     parsear_resposta,
-    precisa_de_acao_humana,
     salvar_no_historico,
 )
 from pydantic import BaseModel
@@ -57,7 +57,7 @@ async def gerenciar_ciclo_de_vida(app: FastAPI):
 app = FastAPI(
     title="Classificador de Feedbacks com IA",
     description="Classifica o sentimento de feedbacks de clientes usando a API do Gemini.",
-    version="0.4.0",
+    version="0.5.0",
     lifespan=gerenciar_ciclo_de_vida,
 )
 
@@ -78,6 +78,7 @@ class ClassificacaoSaida(BaseModel):
     resposta_sugerida: str
     resposta_completa: str
     acao_pendente_criada: bool
+    motivo_acao_pendente: str | None
 
 
 @app.post("/classificar", response_model=ClassificacaoSaida)
@@ -107,19 +108,19 @@ def classificar(entrada: FeedbackEntrada) -> ClassificacaoSaida:
         feedback, sentimento, justificativa, resposta_sugerida
     )
 
-    acao_criada = False
-    if precisa_de_acao_humana(sentimento):
-        criar_acao_pendente(
-            classificacao_id, "Feedback negativo — revisar e responder ao cliente."
-        )
-        acao_criada = True
+    motivo_acao = decidir_acao_com_agente(
+        _cliente, feedback, sentimento, justificativa
+    )
+    if motivo_acao:
+        criar_acao_pendente(classificacao_id, motivo_acao)
 
     return ClassificacaoSaida(
         sentimento=sentimento,
         justificativa=justificativa,
         resposta_sugerida=resposta_sugerida,
         resposta_completa=resultado.strip(),
-        acao_pendente_criada=acao_criada,
+        acao_pendente_criada=motivo_acao is not None,
+        motivo_acao_pendente=motivo_acao,
     )
 
 
