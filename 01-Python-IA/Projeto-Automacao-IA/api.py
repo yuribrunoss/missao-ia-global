@@ -55,7 +55,7 @@ async def gerenciar_ciclo_de_vida(app: FastAPI):
 app = FastAPI(
     title="Classificador de Feedbacks com IA",
     description="Classifica o sentimento de feedbacks de clientes usando a API do Gemini.",
-    version="0.2.0",
+    version="0.3.0",
     lifespan=gerenciar_ciclo_de_vida,
 )
 
@@ -73,6 +73,7 @@ class FeedbackEntrada(BaseModel):
 class ClassificacaoSaida(BaseModel):
     sentimento: str
     justificativa: str
+    resposta_sugerida: str
     resposta_completa: str
 
 
@@ -93,12 +94,13 @@ def classificar(entrada: FeedbackEntrada) -> ClassificacaoSaida:
             status_code=502, detail=f"Erro ao chamar a API do Gemini: {erro}"
         ) from erro
 
-    sentimento, justificativa = parsear_resposta(resultado)
-    salvar_no_historico(feedback, sentimento, justificativa)
+    sentimento, justificativa, resposta_sugerida = parsear_resposta(resultado)
+    salvar_no_historico(feedback, sentimento, justificativa, resposta_sugerida)
 
     return ClassificacaoSaida(
         sentimento=sentimento,
         justificativa=justificativa,
+        resposta_sugerida=resposta_sugerida,
         resposta_completa=resultado.strip(),
     )
 

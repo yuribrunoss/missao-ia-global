@@ -26,12 +26,13 @@ load_dotenv()
 MODELO = "gemini-3.6-flash"
 BANCO_DE_DADOS = Path(__file__).parent / "historico.db"
 
-PROMPT_BASE = """Voce e um assistente que analisa feedbacks de clientes.
+PROMPT_BASE = """Voce e um assistente que analisa feedbacks de clientes e sugere como responder a eles.
 
 Leia o feedback abaixo e responda EXATAMENTE neste formato:
 
 Sentimento: <positivo, negativo ou neutro>
 Justificativa: <uma frase curta explicando o motivo>
+Resposta sugerida: <uma resposta curta e educada para enviar ao cliente, coerente com o sentimento>
 
 Feedback do cliente:
 \"\"\"{feedback}\"\"\"
@@ -69,10 +70,11 @@ def classificar_feedback(client: genai.Client, feedback: str) -> str:
     return resposta.text or "Sem resposta da IA"
 
 
-def parsear_resposta(resposta: str) -> tuple[str, str]:
-    """Extrai sentimento e justificativa do texto que a IA devolveu."""
+def parsear_resposta(resposta: str) -> tuple[str, str, str]:
+    """Extrai sentimento, justificativa e resposta sugerida do texto que a IA devolveu."""
     sentimento = ""
     justificativa = ""
+    resposta_sugerida = ""
 
     for linha in resposta.splitlines():
         linha = linha.strip()
@@ -80,12 +82,14 @@ def parsear_resposta(resposta: str) -> tuple[str, str]:
             sentimento = linha.split(":", 1)[1].strip()
         elif linha.lower().startswith("justificativa:"):
             justificativa = linha.split(":", 1)[1].strip()
+        elif linha.lower().startswith("resposta sugerida:"):
+            resposta_sugerida = linha.split(":", 1)[1].strip()
 
-    return sentimento, justificativa
+    return sentimento, justificativa, resposta_sugerida
 
 
 def inicializar_banco() -> None:
-    """Cria a tabela de historico se ainda nao existir."""
+    """Cria a tabela de historico se ainda nao existir (e migra bancos antigos)."""
     with sqlite3.connect(BANCO_DE_DADOS) as conexao:
         conexao.execute(
             """
@@ -94,19 +98,39 @@ def inicializar_banco() -> None:
                 feedback TEXT NOT NULL,
                 sentimento TEXT,
                 justificativa TEXT,
+                resposta_sugerida TEXT,
                 criado_em TEXT NOT NULL
             )
             """
         )
 
+        # Migracao: bancos criados antes da Semana 1 do Volume 2 nao tem
+        # essa coluna ainda. Adiciona sem perder o historico existente.
+        colunas = {
+            linha[1] for linha in conexao.execute("PRAGMA table_info(classificacoes)")
+        }
+        if "resposta_sugerida" not in colunas:
+            conexao.execute(
+                "ALTER TABLE classificacoes ADD COLUMN resposta_sugerida TEXT"
+            )
 
-def salvar_no_historico(feedback: str, sentimento: str, justificativa: str) -> None:
+
+def salvar_no_historico(
+    feedback: str, sentimento: str, justificativa: str, resposta_sugerida: str
+) -> None:
     """Guarda uma classificacao no banco SQLite local."""
     with sqlite3.connect(BANCO_DE_DADOS) as conexao:
         conexao.execute(
-            "INSERT INTO classificacoes (feedback, sentimento, justificativa, criado_em) "
-            "VALUES (?, ?, ?, ?)",
-            (feedback, sentimento, justificativa, datetime.now(timezone.utc).isoformat()),
+            "INSERT INTO classificacoes "
+            "(feedback, sentimento, justificativa, resposta_sugerida, criado_em) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (
+                feedback,
+                sentimento,
+                justificativa,
+                resposta_sugerida,
+                datetime.now(timezone.utc).isoformat(),
+            ),
         )
 
 
@@ -114,7 +138,7 @@ def obter_historico(limite: int = 5) -> list[dict]:
     """Retorna as ultimas classificacoes salvas, mais recente primeiro."""
     with sqlite3.connect(BANCO_DE_DADOS) as conexao:
         linhas = conexao.execute(
-            "SELECT feedback, sentimento, justificativa, criado_em "
+            "SELECT feedback, sentimento, justificativa, resposta_sugerida, criado_em "
             "FROM classificacoes ORDER BY id DESC LIMIT ?",
             (limite,),
         ).fetchall()
@@ -124,7 +148,8 @@ def obter_historico(limite: int = 5) -> list[dict]:
             "feedback": feedback,
             "sentimento": sentimento,
             "justificativa": justificativa,
+            "resposta_sugerida": resposta_sugerida,
             "criado_em": criado_em,
         }
-        for feedback, sentimento, justificativa, criado_em in linhas
+        for feedback, sentimento, justificativa, resposta_sugerida, criado_em in linhas
     ]

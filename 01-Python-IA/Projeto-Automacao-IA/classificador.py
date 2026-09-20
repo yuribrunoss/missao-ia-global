@@ -45,6 +45,7 @@ def mostrar_historico(limite: int = 5) -> None:
         resumo = feedback if len(feedback) <= 60 else feedback[:57] + "..."
         print(f"- [{registro['criado_em']}] {registro['sentimento']}: {resumo}")
         print(f"  motivo: {registro['justificativa']}")
+        print(f"  resposta sugerida: {registro['resposta_sugerida']}")
     print()
 
 
@@ -81,8 +82,8 @@ def main() -> None:
             resultado = classificar_feedback(client, feedback)
             print("\n" + resultado.strip() + "\n")
 
-            sentimento, justificativa = parsear_resposta(resultado)
-            salvar_no_historico(feedback, sentimento, justificativa)
+            sentimento, justificativa, resposta_sugerida = parsear_resposta(resultado)
+            salvar_no_historico(feedback, sentimento, justificativa, resposta_sugerida)
         except errors.APIError as erro:
             print(f"\nDeu erro ao chamar a API: {erro}\n")
 
