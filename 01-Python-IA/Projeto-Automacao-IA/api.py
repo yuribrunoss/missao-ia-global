@@ -19,8 +19,6 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
-from pydantic import BaseModel
-
 from nucleo import (
     ChaveNaoConfigurada,
     classificar_feedback,
@@ -34,6 +32,7 @@ from nucleo import (
     precisa_de_acao_humana,
     salvar_no_historico,
 )
+from pydantic import BaseModel
 
 _cliente = None
 
@@ -89,6 +88,11 @@ def classificar(entrada: FeedbackEntrada) -> ClassificacaoSaida:
     if not feedback:
         raise HTTPException(
             status_code=400, detail="O campo 'feedback' nao pode estar vazio."
+        )
+
+    if _cliente is None:
+        raise HTTPException(
+            status_code=500, detail="Cliente da IA nao foi inicializado."
         )
 
     try:
