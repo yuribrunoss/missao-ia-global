@@ -1,4 +1,4 @@
-# Projeto de Automação com IA — Semana 3
+# Projeto de Automação com IA
 
 Projeto prático da Missão IA Global: automação com IA que evolui semana a
 semana.
@@ -14,9 +14,17 @@ semana.
 
 ## O que ele faz hoje
 
-Recebe um feedback de cliente (texto livre) e usa a API do Gemini para
-classificar o sentimento — positivo, negativo ou neutro — com
-justificativa, guardando tudo num histórico local. Duas formas de usar:
+Recebe um feedback de cliente (texto livre) e usa a API do Gemini pra:
+
+1. **Classificar** o sentimento — positivo, negativo ou neutro — com
+   justificativa.
+2. **Sugerir uma resposta** pronta pra enviar ao cliente, coerente com
+   o sentimento identificado.
+3. **Decidir e agir**: se o sentimento for negativo, cria automaticamente
+   um registro de "ação pendente" — alguém precisa olhar aquele
+   feedback. Não é só classificação, é decisão + ação.
+
+Tudo isso fica salvo num histórico local. Duas formas de usar:
 
 ### 1. Pelo terminal (CLI)
 
@@ -24,8 +32,10 @@ justificativa, guardando tudo num histórico local. Duas formas de usar:
 uv run classificador.py
 ```
 
-Digite um feedback, veja a classificação. Digite `historico` pra ver o
-que já foi salvo. Digite `sair` para encerrar.
+Digite um feedback, veja a classificação e a resposta sugerida. Digite
+`historico` pra ver o que já foi salvo, `acoes` pra ver as ações
+pendentes (feedbacks negativos que precisam de atenção), e `sair` para
+encerrar.
 
 ### 2. Pela API (FastAPI)
 
@@ -38,12 +48,17 @@ uma página interativa sozinho, onde dá pra testar os endpoints sem
 escrever nenhum código:
 
 - `POST /classificar` — manda `{"feedback": "seu texto aqui"}`, recebe
-  de volta o sentimento e a justificativa.
+  de volta o sentimento, a justificativa, a resposta sugerida e se uma
+  ação pendente foi criada (`acao_pendente_criada`).
 - `GET /historico?limite=5` — devolve as últimas classificações salvas.
+- `GET /acoes-pendentes?limite=20` — devolve os feedbacks negativos que
+  ainda precisam de atenção humana.
 
 Problema de negócio que representa: qualquer sistema (um site, um
 chatbot, uma planilha automatizada) pode chamar essa API pra classificar
-feedbacks em tempo real, sem precisar de alguém digitando no terminal.
+feedbacks em tempo real, já sair com uma resposta pronta pra usar, e
+saber automaticamente quais casos precisam de atenção — sem precisar de
+alguém digitando no terminal ou lendo feedback por feedback.
 
 ## Como configurar (primeira vez, local)
 
@@ -81,8 +96,12 @@ resumo:
 
 ## Próximas etapas (plano)
 
-- **Semana 4:** README final, link no GitHub e primeiro post no LinkedIn
-  mostrando o projeto rodando.
+Esse projeto é a base do **Volume 1 — Python for AI** e agora também do
+**Volume 2 — Automação com IA (decisão + ação)** do roadmap da Missão
+IA Global. Depois de decisão + ação, o próximo passo do roadmap é um
+agente de verdade (Volume 3 — AI Agents), escolhendo ferramentas em vez
+de seguir um fluxo fixo.
 
-Plano completo em `claude/plano-4-semanas.md` no projeto Missão IA
-Global.
+Planos completos no projeto Missão IA Global:
+- `claude/plano-4-semanas.md` — Volume 1 (concluído).
+- `claude/plano-volume-2.md` — Volume 2 (em andamento).
