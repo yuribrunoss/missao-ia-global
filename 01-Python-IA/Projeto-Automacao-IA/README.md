@@ -20,9 +20,14 @@ Recebe um feedback de cliente (texto livre) e usa a API do Gemini pra:
    justificativa.
 2. **Sugerir uma resposta** pronta pra enviar ao cliente, coerente com
    o sentimento identificado.
-3. **Decidir e agir**: se o sentimento for negativo, cria automaticamente
-   um registro de "ação pendente" — alguém precisa olhar aquele
-   feedback. Não é só classificação, é decisão + ação.
+3. **Decidir e agir**: um agente (via function calling do Gemini) decide
+   se o caso precisa de uma "ação pendente" — não é mais uma regra fixa
+   tipo "se for negativo, sempre cria"; o próprio modelo avalia o caso e
+   escreve o motivo quando decide agir.
+4. **Consultar o histórico antes de decidir**: o agente pode, por conta
+   própria, checar se já apareceram casos parecidos antes e usar isso
+   pra reforçar a decisão — por exemplo, apontando que é um problema
+   recorrente.
 
 Tudo isso fica salvo num histórico local. Duas formas de usar:
 
@@ -48,8 +53,9 @@ uma página interativa sozinho, onde dá pra testar os endpoints sem
 escrever nenhum código:
 
 - `POST /classificar` — manda `{"feedback": "seu texto aqui"}`, recebe
-  de volta o sentimento, a justificativa, a resposta sugerida e se uma
-  ação pendente foi criada (`acao_pendente_criada`).
+  de volta o sentimento, a justificativa, a resposta sugerida, se uma
+  ação pendente foi criada (`acao_pendente_criada`) e o motivo escrito
+  pelo próprio agente quando ele decide agir (`motivo_acao_pendente`).
 - `GET /historico?limite=5` — devolve as últimas classificações salvas.
 - `GET /acoes-pendentes?limite=20` — devolve os feedbacks negativos que
   ainda precisam de atenção humana.
@@ -96,12 +102,13 @@ resumo:
 
 ## Próximas etapas (plano)
 
-Esse projeto é a base do **Volume 1 — Python for AI** e agora também do
-**Volume 2 — Automação com IA (decisão + ação)** do roadmap da Missão
-IA Global. Depois de decisão + ação, o próximo passo do roadmap é um
-agente de verdade (Volume 3 — AI Agents), escolhendo ferramentas em vez
-de seguir um fluxo fixo.
+Esse projeto é a base do **Volume 1 — Python for AI**, do **Volume 2 —
+Automação com IA (decisão + ação)** e agora também do **Volume 3 — AI
+Agents** (decisão via function calling + memória/contexto) do roadmap
+da Missão IA Global. Depois do Volume 3, o próximo passo é backend de
+verdade (Volume 4 — PostgreSQL + Docker).
 
 Planos completos no projeto Missão IA Global:
 - `claude/plano-4-semanas.md` — Volume 1 (concluído).
-- `claude/plano-volume-2.md` — Volume 2 (em andamento).
+- `claude/plano-volume-2.md` — Volume 2 (concluído).
+- `claude/plano-volume-3.md` — Volume 3 (em andamento — Semanas 1 e 2 concluídas).
