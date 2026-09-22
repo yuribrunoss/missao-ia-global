@@ -22,14 +22,14 @@ Construir um portfólio profissional em IA, Backend e Automação capaz de conqu
 
 # 📍 STATUS GERAL DA MISSÃO
 
-| Indicador                   | Status               |
-| --------------------------- | -------------------- |
-| Volume Atual                | Volume 0             |
-| Missão Atual                | Missão 002 (Próxima) |
-| Progresso Geral da Formação | 3%                   |
-| Nível                       | 🟡 AI Builder I      |
-| XP Total                    | **175 XP**           |
-| Dias Consecutivos           | 🔥 1                 |
+| Indicador                   | Status                                          |
+| --------------------------- | ------------------------------------------------ |
+| Volume Atual                | Volumes 1-4 concluídos — decidindo o próximo     |
+| Missão Atual                | Missão 003 (concluída) — próxima ainda em aberto |
+| Progresso do 1º ciclo técnico | 4/4 volumes entregues e validados em produção  |
+| Nível                       | 🟢 AI Builder II                                 |
+| XP Total                    | **175 + 480 = 655 XP**                           |
+| Dias Consecutivos           | ver `Diario/2026/09-Setembro/` para o detalhe    |
 
 ---
 
@@ -114,6 +114,44 @@ Melhorias previstas na próxima etapa:
 - Tech Stack Visual.
 - Banner Premium.
 - Roadmap Visual.
+
+## ✅ MISSÃO 003 — Primeiro Projeto Técnico Real (17/09 a 22/09/2026)
+
+### Objetivo
+
+Sair de "curso guardado na gaveta" para um projeto real, testado ponta a ponta e em produção — o Classificador de Feedbacks com IA (`01-Python-IA/Projeto-Automacao-IA/`).
+
+### Entregas
+
+- **Volume 1 — Python for AI** (17/09): primeiro script real, CLI que classifica sentimento de feedback via API do Gemini.
+- **Volume 2 — Automação** (19/09): resposta sugerida + decisão automática de "ação pendente" para feedbacks negativos.
+- **Volume 3 — AI Agents** (20/09): a decisão passou a ser do próprio agente, via function calling do Gemini (não mais uma regra fixa), com memória — o agente consulta o histórico antes de decidir.
+- **Volume 4 — Backend AI** (22/09): troca de SQLite por PostgreSQL, containerização com Docker, deploy em produção no Render com banco gerenciado. Testado sobrevivendo a um redeploy manual.
+- Deploy público real: https://missao-ia-global-classificador.onrender.com/docs
+- README do projeto, README do perfil GitHub e documentação raiz (README/ROADMAP/PROJECT-MAP) revisados pra remover claims não demonstrados e refletir o que foi entregue de verdade.
+
+### Aprendizados
+
+- FastAPI, Pydantic, SQLite → PostgreSQL (psycopg).
+- Function calling e loop de tool-use com a API do Gemini.
+- Docker, docker-compose, Dockerfile multi-camada.
+- Deploy com Blueprint (`render.yaml`) e banco gerenciado no Render.
+
+### Problemas Resolvidos
+
+- `.git/index.lock` travado bloqueando commits (mais de uma vez).
+- Porta 5432 do Postgres já em uso no Windows — resolvido publicando o container na 5433.
+- Confusão de e-mail privado do GitHub (GH007) — resolvido fixando o e-mail noreply nos commits.
+
+### XP Obtido
+
+480 XP (120 XP por volume — 4 volumes reais, testados e em produção)
+
+### Resultado Final
+
+🟢 Missão concluída com sucesso — 4 volumes do roadmap técnico entregues e validados em produção.
+
+---
 
 # 📚 STACK APRENDIDA
 
@@ -215,22 +253,16 @@ YUYU AI ERP
 
 Status:
 
-Arquitetura iniciada.
+🔵 Não iniciado — Future Hero Project, é o próximo passo do roadmap depois do ciclo dos Volumes 1-4.
 
 ---
 
 # 🚀 PRÓXIMA MISSÃO
 
-MISSÃO 002 — Construção da Marca Profissional Internacional
+MISSÃO 002 (Construção da Marca Profissional Internacional — GitHub, LinkedIn, Banner, README do Perfil) já foi concluída em 19/09/2026, junto com a Semana 4 do plano de 4 semanas.
 
-Objetivos:
-
-- GitHub Premium.
-- LinkedIn Premium.
-- Banner.
-- README do Perfil.
-- Engenharia do Portfólio.
+MISSÃO 004 — a definir com o usuário: decidir o próximo projeto real (Fase 1 do YUYU AI ERP, ou um novo projeto de automação antes dele). Não decidir isso sozinho — é conversa própria.
 
 Status:
 
-🟡 Liberada.
+🟡 Em aberto.
