@@ -99,8 +99,7 @@ junto) ou instalando as dependências direto na sua máquina.
 
 A API roda de graça no [Render](https://render.com), usando o Blueprint
 `render.yaml` que está na raiz do repositório (`MISSAO-IA-GLOBAL/render.yaml`).
-Passo a passo em `claude/plano-4-semanas.md` no projeto Missão IA Global,
-resumo:
+Resumo do passo a passo:
 
 1. Criar conta no Render e conectar o repositório `MISSAO-IA-GLOBAL`.
 2. Criar um "Blueprint" a partir do `render.yaml` — ele já configura o
@@ -130,10 +129,5 @@ com IA** (decisão + ação), **Volume 3 — AI Agents** (decisão via
 function calling + memória/contexto) e **Volume 4 — Backend IA**
 (PostgreSQL + Docker, rodando em produção com Postgres gerenciado).
 Depois desses quatro, o próximo passo do roadmap é o **YUYU AI ERP**
-(Future Hero Project).
-
-Planos completos no projeto Missão IA Global:
-- `claude/plano-4-semanas.md` — Volume 1 (concluído).
-- `claude/plano-volume-2.md` — Volume 2 (concluído).
-- `claude/plano-volume-3.md` — Volume 3 (concluído).
-- `claude/plano-volume-4.md` — Volume 4 (concluído).
+(Future Hero Project). Os quatro volumes já estão concluídos e validados
+em produção.

@@ -1,273 +1,75 @@
-# 🛣 ROADMAP — MISSÃO IA GLOBAL
+# 🛣️ Roadmap — Missão IA Global
 
-> **Version:** 2.0.0
-> **Status:** 🟢 Active
-> **Project:** Missão IA Global
-> **Document Type:** Engineering Roadmap
+A long-term plan for becoming an AI Engineer / Backend Developer through
+real, shipped software — not just courses.
 
 ---
 
-# 🌍 Mission Overview
+## 📦 Engineering Roadmap
 
-Missão IA Global is a long-term engineering roadmap focused on becoming an AI Engineer through real software projects, public documentation and production-ready backend systems.
+| Volume | Focus | Status |
+| --- | --- | --- |
+| 1 — Python for AI | First Python + Gemini API project (CLI) | ✅ Concluded |
+| 2 — Automation | Decision + action logic (no fixed rules) | ✅ Concluded |
+| 3 — AI Agents | Function calling + memory/context | ✅ Concluded |
+| 4 — Backend AI | PostgreSQL + Docker, deployed in production | ✅ Concluded |
+| YUYU AI ERP | Future Hero Project | 🔜 Not started |
 
-The roadmap is divided into engineering volumes and execution sprints.
-
----
-
-# 🎯 Mission Goal
-
-Build an international AI Engineering portfolio while developing real-world software products.
-
-Main objectives:
-
-* AI Engineering.
-* Backend Development.
-* AI Automation.
-* International Career.
-* Open Source Portfolio.
+All four completed volumes are the same project —
+`01-Python-IA/Projeto-Automacao-IA/` (the AI Feedback Classifier) — evolved
+layer by layer. See its own README for the technical detail of each
+volume.
 
 ---
 
-# 📦 Engineering Roadmap
+## 📘 Volume 1 — Python for AI ✅
 
-| Volume                               | Status      |
-| ------------------------------------ | ----------- |
-| 📘 Volume 0 — AI Foundations         | ✅ Completed |
-| 🏗 Volume 1 — YUYU AI ERP            | 🟢 Next     |
-| 🤖 Volume 2 — AI Automation Systems  | 🚧 Planned  |
-| 🌐 Volume 3 — Portfolio Website      | 🚧 Planned  |
-| 🚀 Volume 4 — Production AI Products | 🚧 Planned  |
+First real code in the roadmap: a CLI that sends customer feedback to the
+Gemini API and classifies sentiment with a justification.
 
----
+## 🤖 Volume 2 — Automation ✅
 
-# 📘 Volume 0 — AI Foundations
+Added a suggested reply, and logic that flags negative feedback as
+needing human follow-up (`ações pendentes`).
 
-## Status
+## 🧠 Volume 3 — AI Agents ✅
 
-✅ Completed (Release Candidate)
+The fixed rule became a real decision: the Gemini model itself decides,
+via function calling, whether a case needs follow-up — and can consult
+similar past cases first (a short tool-use loop, capped at 4 steps so it
+never runs unbounded).
 
-## Deliverables
+## 🗄️ Volume 4 — Backend AI ✅
 
-* Development Environment.
-* GitHub Premium.
-* LinkedIn Premium.
-* Brand System Premium.
-* Career OS.
-* Engineering Handbook.
-* Engineering Journal.
+Migrated from SQLite to PostgreSQL so history survives redeploys,
+containerized the app with Docker (API + Postgres via `docker-compose`),
+and deployed with a managed Postgres database on Render via `render.yaml`
+— validated end-to-end in production, including surviving a manual
+redeploy.
 
-## Final Sprint
+## 🚀 Next — YUYU AI ERP (Future Hero Project)
 
-Sprint G2 — GitHub Premium Release.
-
----
-
-# 🏗 Volume 1 — YUYU AI ERP
-
-## Goal
-
-Develop a production-ready ERP system for YUYU CELL.
-
-## Planned Phases
-
-### Phase 1 — Backend Foundation
-
-* FastAPI.
-* PostgreSQL.
-* Docker.
-* Authentication.
-
-### Phase 2 — Business Modules
-
-* CRM.
-* Orders.
-* Inventory.
-* Warranty.
-* Finance.
-* Marketing.
-
-### Phase 3 — AI Features
-
-* AI Assistant.
-* AI Automation.
-* Reports.
-* Dashboards.
+Not started yet. Planned as a bigger, production-oriented ERP project
+(FastAPI + PostgreSQL + AI features) once the next real project's scope
+is decided. No fixed volume number until work actually begins.
 
 ---
 
-# 🤖 Volume 2 — AI Automation Systems
+## 🌎 Career Track (parallel — doesn't block the technical roadmap)
 
-## Goal
-
-Create reusable AI automation solutions.
-
-Topics:
-
-* AI Agents.
-* Multi-Agent Systems.
-* Tool Calling.
-* Automation Pipelines.
-* Integrations.
+- English — daily practice, currently basic level.
+- Career prep (résumé, LinkedIn, GitHub profile) — see `05-Carreira-Internacional/`.
 
 ---
 
-# 🌐 Volume 3 — Portfolio Website
+## 📚 Related Documents
 
-## Goal
-
-Build a professional engineering portfolio.
-
-Modules:
-
-* Landing Page.
-* Projects.
-* Career OS.
-* Blog.
-* Engineering Journal.
+- `README.md`
+- `PROJECT-MAP.md`
+- `CHANGELOG.md`
+- `Diario/README.md`
 
 ---
 
-# 🚀 Volume 4 — Production AI Products
-
-## Goal
-
-Transform portfolio projects into deployable AI products.
-
-Possible Products
-
-* AI SaaS.
-* Automation Platform.
-* AI APIs.
-* Business AI Tools.
-
----
-
-# 🧭 Sprint Timeline
-
-## Sprint B — Brand System Premium
-
-Status: ✅ Completed
-
-Deliverables:
-
-* Logo System.
-* Identity Pack.
-* Components Library.
-* GitHub Assets.
-
----
-
-## Sprint G1 — GitHub Premium Foundation
-
-Status: ✅ Completed
-
-Deliverables:
-
-* GitHub structure.
-* README improvements.
-* SSH configuration.
-* Repository organization.
-
----
-
-## Sprint L3 — Career OS / LinkedIn Premium
-
-Status: ✅ Completed
-
-Deliverables:
-
-* Banner Documentation.
-* Headline.
-* About.
-* Experience.
-* Featured Projects.
-* Certifications.
-* Networking.
-
----
-
-## Sprint G2 — GitHub Premium Release
-
-Status: 🟢 In Progress
-
-Deliverables:
-
-* Repository Audit.
-* README Final Review.
-* PROJECT-MAP Review.
-* PROJECT-TREE Creation.
-* Git Commit.
-* First Push.
-* Release Candidate v1.0.0.
-
----
-
-# 🗺 Release Milestones
-
-| Release | Goal                               |
-| ------- | ---------------------------------- |
-| RC1     | Documentation completed.           |
-| RC2     | Repository reviewed.               |
-| v1.0.0  | First public GitHub release.       |
-| v1.1.0  | Official Banner and GitHub assets. |
-| v2.0.0  | Volume 1 completed.                |
-
----
-
-# 📈 Current Progress
-
-| Area                    | Progress           |
-| ----------------------- | ------------------ |
-| Brand System            | 100%               |
-| Career OS               | 100%               |
-| GitHub Premium          | 95%                |
-| Repository Architecture | 95%                |
-| Volume 0 Premium        | 99%                |
-| YUYU AI ERP             | Architecture Ready |
-
----
-
-# 🌍 Career Milestones
-
-## Stage 1
-
-Build AI Engineering Foundation.
-
-## Stage 2
-
-Publish Professional GitHub.
-
-## Stage 3
-
-Publish Portfolio Website.
-
-## Stage 4
-
-Build Production AI Projects.
-
-## Stage 5
-
-Apply for Remote International Opportunities.
-
----
-
-# 📚 Related Documents
-
-* README.md
-* PROJECT-MAP.md
-* PROJECT-TREE.md
-* CHANGELOG.md
-* Diario/README.md
-
----
-
-# 📝 Changelog
-
-## v2.0.0
-
-* Reorganized roadmap into engineering volumes.
-* Added sprint timeline.
-* Added release milestones.
-* Added career milestones.
-* Updated current progress dashboard.
+> One volume gets marked "Concluded" only after it's shipped, deployed and
+> tested end-to-end — not when it's planned.

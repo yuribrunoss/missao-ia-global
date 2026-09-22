@@ -22,9 +22,9 @@ MISSAO-IA-GLOBAL/
 
 01-Python-IA/
 
-02-APIs-Automation/
+02-APIs-e-Automacoes/
 
-03-AI-Agents/
+03-Agentes-IA/
 
 04-Backend-IA/
 
@@ -70,19 +70,19 @@ Environment setup and engineering foundation.
 
 ## 01-Python-IA
 
-Python Engineering learning path.
+AI Feedback Classifier — Volumes 1-4 of the roadmap, completed and in production.
 
-## 02-APIs-Automation
+## 02-APIs-e-Automacoes
 
-API Engineering and Automation Systems.
+Reserved for a future project (empty on purpose — Volume 2 was built inside 01-Python-IA/).
 
-## 03-AI-Agents
+## 03-Agentes-IA
 
-AI Agents engineering.
+Reserved for a future project (empty on purpose — Volume 3 was built inside 01-Python-IA/).
 
 ## 04-Backend-IA
 
-Backend architecture and production systems.
+Reserved for a future project (empty on purpose — Volume 4 was built inside 01-Python-IA/).
 
 ## 05-Carreira-Internacional
 
