@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: missao_ia
+    ports:
+      # Continua exposto na 5433 pro seu Windows (pra voce poder testar
+      # com um cliente Postgres local se quiser), mas isso e so pra
+      # acesso de FORA do compose.
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Dentro da rede do docker-compose, os containers se enxergam pelo
+      # NOME DO SERVICO (aqui "db"), nao por "localhost", e usam a porta
+      # INTERNA do Postgres (5432), nao a 5433 que mapeamos pro host.
+      DATABASE_URL: postgresql://postgres:postgres123@db:5432/missao_ia
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
