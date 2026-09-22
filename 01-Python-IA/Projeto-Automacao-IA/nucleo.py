@@ -11,10 +11,9 @@ logica — os dois so importam daqui.
 """
 
 import os
-import sqlite3
 from datetime import datetime, timezone
-from pathlib import Path
 
+import psycopg
 from dotenv import load_dotenv
 from google import genai
 from google.genai import (
@@ -25,7 +24,7 @@ from google.genai import (
 load_dotenv()
 
 MODELO = "gemini-3.6-flash"
-BANCO_DE_DADOS = Path(__file__).parent / "historico.db"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 PROMPT_BASE = """Voce e um assistente que analisa feedbacks de clientes e sugere como responder a eles.
 
@@ -225,10 +224,10 @@ def consultar_historico_parecido(sentimento: str, limite: int = 3) -> list[dict]
     E a "memoria" que o agente (decidir_acao_com_agente) pode consultar
     antes de decidir se um feedback precisa de acao pendente.
     """
-    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+    with psycopg.connect(DATABASE_URL) as conexao:
         linhas = conexao.execute(
             "SELECT feedback, justificativa, criado_em FROM classificacoes "
-            "WHERE sentimento = ? ORDER BY id DESC LIMIT ?",
+            "WHERE sentimento = %s ORDER BY id DESC LIMIT %s",
             (sentimento, limite),
         ).fetchall()
 
@@ -258,11 +257,11 @@ def parsear_resposta(resposta: str) -> tuple[str, str, str]:
 
 def inicializar_banco() -> None:
     """Cria a tabela de historico se ainda nao existir (e migra bancos antigos)."""
-    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+    with psycopg.connect(DATABASE_URL) as conexao:
         conexao.execute(
             """
             CREATE TABLE IF NOT EXISTS classificacoes (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 feedback TEXT NOT NULL,
                 sentimento TEXT,
                 justificativa TEXT,
@@ -275,7 +274,11 @@ def inicializar_banco() -> None:
         # Migracao: bancos criados antes da Semana 1 do Volume 2 nao tem
         # essa coluna ainda. Adiciona sem perder o historico existente.
         colunas = {
-            linha[1] for linha in conexao.execute("PRAGMA table_info(classificacoes)")
+            linha[0]
+            for linha in conexao.execute(
+                "SELECT column_name FROM information_schema.columns "
+                "WHERE table_name = 'classificacoes'"
+            )
         }
         if "resposta_sugerida" not in colunas:
             conexao.execute(
@@ -285,7 +288,7 @@ def inicializar_banco() -> None:
         conexao.execute(
             """
             CREATE TABLE IF NOT EXISTS acoes_pendentes (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 classificacao_id INTEGER NOT NULL,
                 motivo TEXT NOT NULL,
                 criado_em TEXT NOT NULL,
@@ -298,12 +301,13 @@ def inicializar_banco() -> None:
 def salvar_no_historico(
     feedback: str, sentimento: str, justificativa: str, resposta_sugerida: str
 ) -> int:
-    """Guarda uma classificacao no banco SQLite local e retorna o id gerado."""
-    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+    """Guarda uma classificacao no banco Postgres e retorna o id gerado."""
+    with psycopg.connect(DATABASE_URL) as conexao:
         cursor = conexao.execute(
             "INSERT INTO classificacoes "
             "(feedback, sentimento, justificativa, resposta_sugerida, criado_em) "
-            "VALUES (?, ?, ?, ?, ?)",
+            "VALUES (%s, %s, %s, %s, %s) "
+            "RETURNING id",
             (
                 feedback,
                 sentimento,
@@ -312,15 +316,15 @@ def salvar_no_historico(
                 datetime.now(timezone.utc).isoformat(),
             ),
         )
-        return cursor.lastrowid
+        return cursor.fetchone()[0]
 
 
 def obter_historico(limite: int = 5) -> list[dict]:
     """Retorna as ultimas classificacoes salvas, mais recente primeiro."""
-    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+    with psycopg.connect(DATABASE_URL) as conexao:
         linhas = conexao.execute(
             "SELECT feedback, sentimento, justificativa, resposta_sugerida, criado_em "
-            "FROM classificacoes ORDER BY id DESC LIMIT ?",
+            "FROM classificacoes ORDER BY id DESC LIMIT %s",
             (limite,),
         ).fetchall()
 
@@ -338,17 +342,17 @@ def obter_historico(limite: int = 5) -> list[dict]:
 
 def criar_acao_pendente(classificacao_id: int, motivo: str) -> None:
     """Registra que uma classificacao precisa de atencao humana."""
-    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+    with psycopg.connect(DATABASE_URL) as conexao:
         conexao.execute(
             "INSERT INTO acoes_pendentes (classificacao_id, motivo, criado_em) "
-            "VALUES (?, ?, ?)",
+            "VALUES (%s, %s, %s)",
             (classificacao_id, motivo, datetime.now(timezone.utc).isoformat()),
         )
 
 
 def obter_acoes_pendentes(limite: int = 20) -> list[dict]:
     """Retorna as acoes pendentes mais recentes, com o feedback original."""
-    with sqlite3.connect(BANCO_DE_DADOS) as conexao:
+    with psycopg.connect(DATABASE_URL) as conexao:
         linhas = conexao.execute(
             """
             SELECT acoes_pendentes.id,
@@ -360,7 +364,7 @@ def obter_acoes_pendentes(limite: int = 20) -> list[dict]:
             FROM acoes_pendentes
             JOIN classificacoes ON classificacoes.id = acoes_pendentes.classificacao_id
             ORDER BY acoes_pendentes.id DESC
-            LIMIT ?
+            LIMIT %s
             """,
             (limite,),
         ).fetchall()
