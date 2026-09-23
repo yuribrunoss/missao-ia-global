@@ -59,6 +59,13 @@ the technical detail of each volume.
 
 **Next up:** deciding the next real project — likely the first phase of **YUYU AI ERP** (FastAPI + PostgreSQL ERP backend), still not started.
 
+## 📊 GitHub Stats
+
+![Followers](https://img.shields.io/github/followers/yuribrunoss?label=Followers&style=flat)
+![Last commit](https://img.shields.io/github/last-commit/yuribrunoss/missao-ia-global?label=Last%20commit)
+![Top language](https://img.shields.io/github/languages/top/yuribrunoss/missao-ia-global)
+![Repo stars](https://img.shields.io/github/stars/yuribrunoss/missao-ia-global?style=flat)
+
 ## 🗂️ Repository Structure
 
 ```text
@@ -161,6 +168,13 @@ pro detalhe técnico de cada volume.
 
 **Próximo passo:** decidir o próximo projeto real — provavelmente a primeira fase do **YUYU AI ERP** (backend de ERP com FastAPI + PostgreSQL), que ainda não foi iniciado.
 
+## 📊 Estatísticas do GitHub
+
+![Followers](https://img.shields.io/github/followers/yuribrunoss?label=Followers&style=flat)
+![Last commit](https://img.shields.io/github/last-commit/yuribrunoss/missao-ia-global?label=Last%20commit)
+![Top language](https://img.shields.io/github/languages/top/yuribrunoss/missao-ia-global)
+![Repo stars](https://img.shields.io/github/stars/yuribrunoss/missao-ia-global?style=flat)
+
 ## 🗂️ Estrutura do Repositório
 
 ```text
@@ -262,6 +276,13 @@ para el detalle técnico de cada volumen.
 **En uso:** Python · FastAPI · PostgreSQL · SQLite · Docker · API de Google Gemini (incl. function calling / agentes de IA) · Git & GitHub · VS Code · uv
 
 **Próximo paso:** decidir el próximo proyecto real — probablemente la primera fase de **YUYU AI ERP** (backend de ERP con FastAPI + PostgreSQL), todavía no iniciado.
+
+## 📊 Estadísticas de GitHub
+
+![Followers](https://img.shields.io/github/followers/yuribrunoss?label=Followers&style=flat)
+![Last commit](https://img.shields.io/github/last-commit/yuribrunoss/missao-ia-global?label=Last%20commit)
+![Top language](https://img.shields.io/github/languages/top/yuribrunoss/missao-ia-global)
+![Repo stars](https://img.shields.io/github/stars/yuribrunoss/missao-ia-global?style=flat)
 
 ## 🗂️ Estructura del Repositorio
 
@@ -366,6 +387,13 @@ pour le détail technique de chaque volume.
 
 **Prochaine étape :** décider du prochain projet réel — probablement la première phase de **YUYU AI ERP** (backend ERP en FastAPI + PostgreSQL), pas encore commencé.
 
+## 📊 Statistiques GitHub
+
+![Followers](https://img.shields.io/github/followers/yuribrunoss?label=Followers&style=flat)
+![Last commit](https://img.shields.io/github/last-commit/yuribrunoss/missao-ia-global?label=Last%20commit)
+![Top language](https://img.shields.io/github/languages/top/yuribrunoss/missao-ia-global)
+![Repo stars](https://img.shields.io/github/stars/yuribrunoss/missao-ia-global?style=flat)
+
 ## 🗂️ Structure du dépôt
 
 ```text
@@ -468,6 +496,13 @@ per il dettaglio tecnico di ogni volume.
 **In uso:** Python · FastAPI · PostgreSQL · SQLite · Docker · API Google Gemini (incl. function calling / agenti IA) · Git & GitHub · VS Code · uv
 
 **Prossimo passo:** decidere il prossimo progetto reale — probabilmente la prima fase di **YUYU AI ERP** (backend ERP con FastAPI + PostgreSQL), non ancora iniziato.
+
+## 📊 Statistiche GitHub
+
+![Followers](https://img.shields.io/github/followers/yuribrunoss?label=Followers&style=flat)
+![Last commit](https://img.shields.io/github/last-commit/yuribrunoss/missao-ia-global?label=Last%20commit)
+![Top language](https://img.shields.io/github/languages/top/yuribrunoss/missao-ia-global)
+![Repo stars](https://img.shields.io/github/stars/yuribrunoss/missao-ia-global?style=flat)
 
 ## 🗂️ Struttura del Repository
 
