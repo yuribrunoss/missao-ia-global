@@ -4,8 +4,6 @@
 
 🇧🇷 Natal, Brazil • 🌎 Open to Remote Global Opportunities
 
-🇺🇸 [English](#lang-en) · 🇧🇷 [Português](#lang-pt) · 🇪🇸 [Español](#lang-es) · 🇫🇷 [Français](#lang-fr) · 🇮🇹 [Italiano](#lang-it)
-
 ---
 
 <details open>
